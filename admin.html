@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Panel — Ravana City</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#0b0b0b;color:#fff;padding:24px}
+    .box{max-width:520px;margin:24px auto;background:#111;padding:18px;border-radius:8px}
+    label{display:block;margin-top:8px;font-size:13px}
+    input{width:100%;padding:10px;margin-top:6px;border-radius:6px;border:1px solid #222;background:#070707;color:#fff}
+    button{margin-top:12px;padding:10px 14px;border-radius:6px;border:none;background:#ffd54f;color:#000;font-weight:700;cursor:pointer}
+    .muted{color:#bbb;font-size:13px}
+    .controls{display:flex;gap:8px;margin-top:12px}
+    .status{margin-top:12px;padding:10px;background:#0b0b0b;border-radius:6px;border:1px solid #222}
+    .small{font-size:12px;color:#ccc}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Admin Register</h2>
+    <div id="registerArea">
+      <label>Username<input id="regUser"></label>
+      <label>Password<input id="regPass" type="password"></label>
+      <label>Admin Code<input id="regCode" value="TEAM999@#"></label>
+      <button id="regBtn">Register as Admin</button>
+      <div class="muted">After register, you'll be logged in automatically.</div>
+    </div>
+
+    <hr style="margin:18px 0;border-color:#222">
+
+    <h2>Admin Login</h2>
+    <div id="loginArea">
+      <label>Username<input id="loginUser"></label>
+      <label>Password<input id="loginPass" type="password"></label>
+      <button id="loginBtn">Login</button>
+    </div>
+
+    <div id="adminPanel" style="display:none">
+      <h3>Admin Controls</h3>
+      <div class="small">Use these controls to override reported server status.</div>
+      <div class="controls">
+        <button id="setOn">Force Online</button>
+        <button id="setOff">Force Offline</button>
+        <button id="clear">Clear Override</button>
+      </div>
+      <label>Players (when forcing online)<input id="forcePlayers" value="0"></label>
+      <label>Max players<input id="forceMax" value="32"></label>
+      <div class="status" id="overrideStatus">Loading override status...</div>
+      <button id="logoutBtn" style="background:#333;color:#fff">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    const API = 'http://localhost:3000';
+    const regBtn = document.getElementById('regBtn');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const adminPanel = document.getElementById('adminPanel');
+    const overrideStatus = document.getElementById('overrideStatus');
+
+    function token(){ return localStorage.getItem('rc_admin_token'); }
+
+    async function showPanelIfLogged(){
+      const t = token();
+      const isLocal = localStorage.getItem('rc_admin_local') === 'true';
+      if(isLocal && t){
+        adminPanel.style.display = 'block';
+        document.getElementById('registerArea').style.display='none';
+        document.getElementById('loginArea').style.display='none';
+        loadOverride();
+        return;
+      }
+      if (!t) return;
+      // verify by fetching admin/status on the proxy
+      try{
+        const res = await fetch(`${API}/admin/status`, { headers: { Authorization: 'Bearer '+t } });
+        if (!res.ok) throw new Error('not auth');
+        adminPanel.style.display = 'block';
+        document.getElementById('registerArea').style.display='none';
+        document.getElementById('loginArea').style.display='none';
+        loadOverride();
+      }catch(e){
+        // proxy unreachable or token invalid — fall back to local only if flagged
+        localStorage.removeItem('rc_admin_token');
+      }
+    }
+
+    async function loadOverride(){
+      // Prefer local override if present
+      const local = localStorage.getItem('rc_local_override');
+      try{
+        const parsed = local ? JSON.parse(local) : null;
+        if(parsed){ overrideStatus.textContent = 'Current override (local): ' + JSON.stringify(parsed); return; }
+      }catch(e){ /* ignore */ }
+
+      const t = token();
+      if(!t) return overrideStatus.textContent = 'Not logged in';
+      try{
+        const res = await fetch(`${API}/admin/status`, { headers: { Authorization: 'Bearer '+t } });
+        const data = await res.json();
+        overrideStatus.textContent = 'Current override: ' + (data.override ? JSON.stringify(data.override) : 'none');
+      }catch(e){ overrideStatus.textContent = 'Failed to load override (proxy)'; }
+    }
+
+    regBtn.addEventListener('click', async ()=>{
+      const username = document.getElementById('regUser').value.trim();
+      const password = document.getElementById('regPass').value;
+      const code = document.getElementById('regCode').value;
+      if(!username||!password){ alert('fill fields'); return; }
+      const res = await fetch(API+'/admin/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password,code})});
+      const j = await res.json();
+      if(!res.ok) return alert('Register failed: '+(j.error||JSON.stringify(j)));
+      // auto login
+      const lr = await fetch(API+'/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+      const lj = await lr.json();
+      if(!lr.ok) return alert('Login failed after register');
+      localStorage.setItem('rc_admin_token', lj.token);
+      showPanelIfLogged();
+    });
+
+    loginBtn.addEventListener('click', async ()=>{
+      const username = document.getElementById('loginUser').value.trim();
+      const password = document.getElementById('loginPass').value;
+      if(!username||!password){ alert('fill fields'); return; }
+      const res = await fetch(API+'/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+      const j = await res.json();
+      if(!res.ok) return alert('Login failed: '+(j.error||JSON.stringify(j)));
+      localStorage.setItem('rc_admin_token', j.token);
+      showPanelIfLogged();
+    });
+
+    document.getElementById('setOn').addEventListener('click', async ()=>{
+      const p = Number(document.getElementById('forcePlayers').value)||0;
+      const m = Number(document.getElementById('forceMax').value)||32;
+      // if local admin mode, store override locally
+      if(localStorage.getItem('rc_admin_local') === 'true'){
+        localStorage.setItem('rc_local_override', JSON.stringify({ state:'on', players:p, maxplayers:m }));
+        loadOverride(); return;
+      }
+      const res = await fetch(API+'/admin/override',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token()},body:JSON.stringify({state:'on',players:p,maxplayers:m})});
+      const j = await res.json();
+      if(!res.ok) return alert('Failed: '+(j.error||JSON.stringify(j)));
+      loadOverride();
+    });
+
+    document.getElementById('setOff').addEventListener('click', async ()=>{
+      if(localStorage.getItem('rc_admin_local') === 'true'){
+        localStorage.setItem('rc_local_override', JSON.stringify({ state:'off' })); loadOverride(); return;
+      }
+      const res = await fetch(API+'/admin/override',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token()},body:JSON.stringify({state:'off'})});
+      const j = await res.json(); if(!res.ok) return alert('Failed'); loadOverride();
+    });
+
+    document.getElementById('clear').addEventListener('click', async ()=>{
+      if(localStorage.getItem('rc_admin_local') === 'true'){
+        localStorage.removeItem('rc_local_override'); loadOverride(); return;
+      }
+      const res = await fetch(API+'/admin/override',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token()},body:JSON.stringify({state:'clear'})});
+      const j = await res.json(); if(!res.ok) return alert('Failed'); loadOverride();
+    });
+
+    logoutBtn.addEventListener('click', ()=>{
+      localStorage.removeItem('rc_admin_token');
+      // also clear local-admin marker so next visit is logged out
+      localStorage.removeItem('rc_admin_local');
+      // redirect to main login page
+      window.location.href = 'index.html';
+    });
+
+    showPanelIfLogged();
+  </script>
+</body>
+</html>

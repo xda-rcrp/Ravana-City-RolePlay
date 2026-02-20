@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ravana City Roleplay - Contact Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<style>
+/* Contact Form Container */
+.contact-container {
+  max-width: 650px;
+  margin: 150px auto 50px;
+  background: rgba(20,20,40,0.85);
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 0 60px rgba(255,213,79,0.3);
+  text-align: center;
+  animation: fadeInUp 1.2s ease forwards;
+}
+  .contact-container h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 34px;
+  color: #ffd54f;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px #ffd54f, 0 0 20px #ffd54f;
+}
+.contact-container p {
+  font-size: 16px;
+  margin-bottom: 35px;
+  color: #ccc;
+}
+.contact-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.contact-container input,
+.contact-container textarea {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+  .contact-container button {
+  padding: 15px 35px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #ffd54f, #b36b00);
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+  transition: 0.3s;
+}
+.contact-container button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px #ffd54f;
+}
+</style>
+</head>
+<body>
+
+<!-- Background video & overlay -->
+<video autoplay muted loop playsinline id="bgVideo">
+  <source src="assets/gta-bg.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">Ravana City <span>Roleplay</span></div>
+  <nav>
+    <ul>
+      <li><a href="dashboard.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="whitelist.html">Whitelist</a></li>
+      <li><a href="gang-register.html">Gang Register</a></li>
+      <li><a href="factions.html">Faction Join</a></li>
+      <li><a href="vip.html">VIP</a></li>
+      <li><a href="contact.html" class="active">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Contact Form Container -->
+<div class="contact-container">
+  <h2>Contact Us</h2>
+  <p>Send us your message and we will get back to you.</p>
+  <form action="https://formspree.io/f/mblponwd" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="_replyto" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div>© 2025 Ravana City Roleplay | All Rights Reserved</div>
+  <div>
+    <a href="dashboard.html">Home</a> |
+    <a href="whitelist.html">Whitelist</a> |
+    <a href="contact.html">Contact Us</a>
+  </div>
+  <div>
+    <a href="https://discord.gg/kXAMFhnE">Discord</a>
+    <a href="#">Instagram</a>
+    <a href="#">YouTube</a>
+  </div>
+</footer>
+
+</body>
+</html>

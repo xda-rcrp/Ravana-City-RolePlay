@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ravana City Roleplay - About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ===== Global Styles ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Poppins', sans-serif;
+      color:white;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      overflow-x:hidden;
+    }
+    h1,h2,h3 { font-family:'Orbitron', sans-serif; }
+    
+    /* ===== Background Video ===== */
+    #bgVideo {
+      position: fixed; right:0; bottom:0;
+      min-width:100%; min-height:100%;
+      object-fit:cover; z-index:-2;
+      filter: brightness(0.4) contrast(1.1) saturate(1.3);
+    }
+    .video-overlay {
+      position: fixed; top:0; left:0;
+      width:100%; height:100%;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 90%);
+      z-index:-1;
+    }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:20px 60px; background:rgba(0,0,0,0.6);
+      box-shadow:0 4px 10px rgba(0,0,0,0.5); position:sticky; top:0; z-index:10;
+    }
+    .logo { font-family:'Orbitron', sans-serif; font-size:28px; font-weight:600; }
+    .logo span { color:#ffd54f; }
+    .navbar ul { display:flex; list-style:none; gap:20px; }
+    .navbar a { text-decoration:none; color:#ccc; transition:0.3s; }
+    .navbar a:hover, .navbar a.active { color:#ffd54f; }
+
+    /* ===== About Section ===== */
+    .about-section {
+      padding:120px 10%; text-align:center;
+      backdrop-filter:blur(5px); background:rgba(0,0,0,0.5);
+      border-radius:20px; box-shadow:0 0 25px rgba(255,213,79,0.2);
+      margin:60px auto;
+    }
+    .about-section h1 {
+      font-size:50px; color:#ffd54f; text-shadow:0 0 15px rgba(255,213,79,0.8); margin-bottom:30px;
+    }
+    .about-section p {
+      font-size:16px; line-height:1.8; color:#ddd; margin-bottom:25px;
+      background:rgba(255,255,255,0.05); padding:20px; border-radius:10px;
+      transition:transform 0.4s; box-shadow:0 0 20px rgba(255,213,79,0.2);
+    }
+    .about-section p:hover {
+      transform:scale(1.03); box-shadow:0 0 40px rgba(255,213,79,0.4);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      position:fixed; bottom:0; width:100%;
+      background:rgba(0,0,0,0.75); display:flex; justify-content:space-around; align-items:center;
+      padding:15px; border-top:1px solid rgba(255,255,255,0.15); font-size:0.9em; z-index:5;
+      flex-wrap:wrap;
+    }
+    footer a { color:#ffb347; text-decoration:none; margin:0 10px; transition:0.3s; }
+    footer a:hover { color:#fff; }
+
+    /* ===== FadeIn Animation ===== */
+    @keyframes fadeIn { from {opacity:0; transform:translateY(40px);} to {opacity:1; transform:translateY(0);} }
+    .about-section { animation: fadeIn 1.5s ease; }
+  </style>
+</head>
+<body>
+
+  <!-- Video Background -->
+  <video autoplay muted loop playsinline id="bgVideo">
+    <source src="assets/gta-bg.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Ravana City <span>Roleplay</span></div>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="whitelist.html">Whitelist</a></li>
+        <li><a href="gangs.html">Gang Register</a></li>
+        <li><a href="factions.html">Faction Join</a></li>
+        <li><a href="vip.html">VIP</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <h1>About Ravana City Roleplay</h1>
+    <p>Welcome to <b>Ravana City Roleplay</b>, the most immersive GTA-inspired roleplay server in Sri Lanka. Our city is built for true roleplayers — whether you want to be a law enforcer, a criminal mastermind, or a business tycoon, every choice shapes your story.</p>
+    <p>Our dedicated team of developers and staff ensure stability, smooth performance, and continuous updates. Engage with custom factions, dynamic events, and an active community — making Ravana City a living, breathing world where your actions matter.</p>
+    <p>Join today and become part of Sri Lanka’s <b>best roleplay server</b>. Create your empire, join communities, and explore endless possibilities in a GTA-inspired city. Your story starts here — own the city, rule the streets, and live your destiny!</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div>© 2025 Ravana City Roleplay | All Rights Reserved</div>
+    <div>
+      <a href="dashboard.html">Home</a> |
+      <a href="whitelist.html">Whitelist</a> |
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div>
+      <a href="https://discord.gg/kXAMFhnE">Discord</a>
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+    </div>
+  </footer>
+
+</body>
+</html>

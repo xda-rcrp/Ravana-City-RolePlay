@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: rgba(0,0,0,0.6);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+.logo span {
+  color: #ffd54f;
+}
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+.navbar a {
+  text-decoration: none;
+  color: #ccc;
+  transition: 0.3s;
+}
+.navbar a:hover,
+.navbar a.active {
+  color: #ffd54f;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  margin-top: 100px;
+  animation: fadeIn 1.5s ease;
+}
+.hero h1 {
+  font-size: 50px;
+}
+.hero h1 span {
+  color: #ffd54f;
+}
+.hero p {
+  margin-top: 15px;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* STATUS */
+.status {
+  text-align: center;
+  margin: 80px 0 50px;
+}
+.status-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+}
+.status .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.online { background: #ffd54f; }
+.offline { background: #ff0033; }
+
+/* OWN THE CITY */
+.own-city {
+  text-align: center;
+  margin: 80px 0;
+}
+.own-city h2 {
+  margin-bottom: 30px;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
+  padding: 30px;
+  width: 280px;
+  transition: 0.4s;
+  box-shadow: 0 0 15px rgba(255,213,79,0.2);
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px rgba(255,213,79,0.5);
+}
+.card img {
+  width: 70px;
+  margin-bottom: 15px;
+}
+
+/* DOWNLOAD */
+.download {
+  text-align: center;
+  margin: 80px 0;
+}
+.download .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 20px;
+}
+.btn {
+  text-decoration: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(90deg, #ffd54f, #b36b00);
+  transition: 0.3s;
+}
+.btn:hover {
+  transform: scale(1.05);
+}
+
+footer {
+   position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.75);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 15px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9em;
+      z-index: 5;
+    }
+
+    footer a {
+      color: #ffb347;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* === OUR COMMUNITIES SECTION === */
+.communities {
+  text-align: center;
+  padding: 100px 20px 80px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(10,20,30,0.9));
+  border-top: 2px solid rgba(255,213,79,0.3);
+  border-bottom: 2px solid rgba(255,213,79,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.communities h2 {
+  font-size: 36px;
+  font-family: 'Orbitron', sans-serif;
+  color: #ffd54f;
+  text-shadow: 0 0 20px rgba(255,213,79,0.6);
+}
+
+.communities p {
+  color: #ccc;
+  margin-top: 10px;
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 40px;
+}
+
+.community-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.community {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255,213,79,0.2);
+  transform: perspective(600px) translateZ(0);
+}
+
+.community img {
+  width: 40px;
+  height: 40px;
+}
+
+.community.discord {
+  background: linear-gradient(90deg, #5865F2, #2c2f7c);
+}
+.community.discord:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 25px rgba(88,101,242,0.8);
+}
+
+.community.whatsapp {
+  background: linear-gradient(90deg, #25D366, #128C7E);
+}
+.community.whatsapp:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 25px rgba(37,211,102,0.8);
+}
+
+/* optional small animation background effect */
+.communities::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,213,79,0.05) 10%, transparent 70%);
+  animation: pulse 6s infinite alternate;
+}
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(1.3); opacity: 0.3; }
+}
+/* === GTA 3D VIDEO BACKGROUND === */
+#bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.4) contrast(1.1) saturate(1.3);
+}
+
+/* Overlay gradient for style and readability */
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 90%);
+  z-index: -1;
+}

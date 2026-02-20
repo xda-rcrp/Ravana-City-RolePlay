@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ravana City Roleplay - VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<style>
+/* VIP Container */
+.vip-container {
+  max-width: 650px;
+  margin: 150px auto 50px;
+  background: rgba(20,20,40,0.85);
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 0 60px rgba(255,215,0,0.4);
+  text-align: center;
+  animation: fadeInUp 1.2s ease forwards;
+}
+.vip-container h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 34px;
+  color: #ffd700;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+}
+.vip-container p {
+  font-size: 16px;
+  margin-bottom: 35px;
+  color: #ccc;
+}
+.vip-btn {
+  padding: 16px 35px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #ffd700, #ffaa00);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 20px #ffd700;
+  transition: 0.4s;
+}
+.vip-btn:hover {
+  background: linear-gradient(45deg, #ffaa00, #cc8800);
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px #ffd700;
+}
+</style>
+</head>
+<body>
+
+<!-- Background video & overlay -->
+<video autoplay muted loop playsinline id="bgVideo">
+  <source src="assets/gta-bg.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">Ravana City <span>Roleplay</span></div>
+  <nav>
+    <ul>
+      <li><a href="dashboard.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="whitelist.html">Whitelist</a></li>
+      <li><a href="gang-register.html">Gang Register</a></li>
+      <li><a href="factions.html">Faction Join</a></li>
+      <li><a href="vip.html" class="active">VIP</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- VIP Container -->
+<div class="vip-container">
+  <h2>VIP Registration</h2>
+  <p>Click below to open the Google Form and register for VIP access.</p>
+  <button class="vip-btn" onclick="openForm()">Open Google Form</button>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div>© 2025 Ravana City Roleplay | All Rights Reserved</div>
+  <div>
+    <a href="dashboard.html">Home</a> |
+    <a href="whitelist.html">Whitelist</a> |
+    <a href="contact.html">Contact Us</a>
+  </div>
+  <div>
+    <a href="https://discord.gg/kXAMFhnE">Discord</a>
+    <a href="#">Instagram</a>
+    <a href="#">YouTube</a>
+  </div>
+</footer>
+
+<script>
+function openForm() {
+  const url = "https://docs.google.com/forms/d/e/1FAIpQLSdktciI8lfmkkczFlVcXlPwD5FF6VKunJgHIWU3q-QeOgzrEA/viewform?usp=publish-editor"; // <-- Replace with your Google Form link
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
